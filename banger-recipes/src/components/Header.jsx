@@ -1,4 +1,15 @@
-const Header = () => {
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+const Header = ({ handleSearchInput }) => {
+  const [searchInput, setSearchInput] = useState("");
+  const [_, setSearchParams] = useSearchParams();
+  const handleClick = () => {
+    handleSearchInput(searchInput);
+    if (searchInput) {
+      setSearchParams({ search: searchInput });
+    }
+    setSearchInput("");
+  };
   return (
     <header className="main_header">
       <div className="text-container">
@@ -10,8 +21,15 @@ const Header = () => {
           must say, Banger food recippes to make your life even more colorful!
         </p>
         <div className="header-input-container">
-          <input type="search" placeholder="Find a recipe..." />
-          <button>Search</button>
+          <input
+            type="search"
+            placeholder="Find a recipe..."
+            value={searchInput}
+            onChange={(e) => {
+              setSearchInput(e.target.value);
+            }}
+          />
+          <button onClick={handleClick}>Search</button>
         </div>
       </div>
       <div>

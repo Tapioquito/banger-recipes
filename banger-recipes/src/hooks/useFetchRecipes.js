@@ -1,5 +1,6 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+
 const options = {
   method: "GET",
   url: "https://tasty.p.rapidapi.com/recipes/list",
@@ -13,20 +14,30 @@ const options = {
   },
 };
 const useFetchRecipes = () => {
-  const [recipes, setRecipes] = useState([]);
-  useEffect(() => {
-    fetchRecipes();
-  }, []);
-  const fetchRecipes = async () => {
+  const [recipes, setRecipes] = useState(null); //null or {}
+  const [loading, setLoading] = useState(false); //false or ture
+  const [error, setError] = useState(null); //null or string
+
+  const fetchRecipes = async (searchTerm) => {
+    setLoading(true);
+    setRecipes(null);
+    setError(null);
     try {
-      const response = await axios.request(options);
+      const requestOptions = { ...options };
+      if (searchTerm) {
+        requestOptions.params.q = searchTerm;
+      }
+      const response = await axios.request(requestOptions);
 
       setRecipes(response.data.results);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setError(error.message);
+      setLoading(false);
     }
   };
-  return [recipes];
+  return [fetchRecipes, { data: recipes, loading, error }];
 };
 
 export default useFetchRecipes;
