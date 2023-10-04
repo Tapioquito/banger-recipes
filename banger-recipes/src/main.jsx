@@ -1,18 +1,21 @@
 import ReactDOM from "react-dom/client";
 import {
-  RouterProvider,
-  Route,
-  createRoutesFromElements,
   createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  RouterProvider,
 } from "react-router-dom";
+
 import App from "./App.jsx";
-import AboutPage from "./pages/AboutPage.jsx";
-import HomePage from "./pages/HomePage.jsx";
-import "./index.css";
-import RecipePage from "./pages/RecipePage.jsx";
-import ErrorPage from "./pages/ErrorPage.jsx";
 import Ingredients from "./components/Ingredients.jsx";
 import Instructions from "./components/Instructions.jsx";
+import AboutPage from "./pages/AboutPage.jsx";
+import ErrorPage from "./pages/ErrorPage.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import RecipePage from "./pages/RecipePage.jsx";
+
+import "./index.css";
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />} errorElement={<ErrorPage />}>

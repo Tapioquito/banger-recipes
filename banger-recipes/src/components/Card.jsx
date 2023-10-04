@@ -4,7 +4,7 @@ const Card = ({ recipe }) => {
   const { id, name, thumbnail_url, topics, total_time_minutes } = recipe;
   const navigate = useNavigate();
   const navigateToRecipePage = () => {
-    navigate(`/recipe/${id}`);
+    navigate(`/recipe/${id}/ingredients`);
   };
   return (
     <div className="card" onClick={navigateToRecipePage}>
